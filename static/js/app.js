@@ -65,18 +65,38 @@ d3.json('samples.json').then((data) => {
         title: "Top 10 | Bacteria",
         margin: { t: 30, l: 150 }
     };
-    
+
     Plotly.newPlot('bar', bar_data, barLayout);
 });
 }
 
-
-// Use otu_ids for the x values.
-// Use sample_values for the y values.
-// Use sample_values for the marker size.
-// Use otu_ids for the marker colors.
-// Use otu_labels for the text values.
 // Display each key-value pair from the metadata JSON object somewhere on the page.
+function init() {
+var selector = d3.select('#selDataset');
+
+d3.json('samples.json').then((data) => {
+    var sampleNames = data.names;
+    sampleNames.forEach((sample) => {
+        selector
+            .append('option')
+            .text(sample)
+            .property('value', sample);
+
+    });
+
+    const firstSample = sampleNames[0];
+    buildCharts(firstSample);
+    buildMetadata(firstSample);
+    });
+    }
+
+    function optionChanged(newSample) {
+    buildCharts(newSample);
+    buildMetadata(newSample);
+    }
+
+    init();
+    
 // Adapt the Gauge Chart from https://plot.ly/javascript/gauge-charts/ Links to an external site. to plot the weekly washing frequency of the individual.
 // You will need to modify the example gauge code to account for values ranging from 0 through 9.
 // Update the chart whenever a new sample is selected.
