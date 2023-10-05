@@ -31,7 +31,7 @@ function buildGaugeChart(sample) {
             sampleData['id'] === parseInt(sample));
         // console.log('buildGaugeChart matchedSampleObj', matchedSampleObj);
         
-        buildGaugeChart(matchedSampleObj[0]);
+        gaugeChart(matchedSampleObj[0]);
     });
 }
 
@@ -60,11 +60,11 @@ function gaugeChart(data) {
 
     let trace = [{ type: 'scatter',
         x: [0], y: [0],
-        marker: {size: 50, color: '2F6497'},
-        name: 'Wash Frequency',
-        text: data.wfreq,
-        hoverinfo: 'text+name'},
-    {   values: [1, 1, 1, 1, 1, 1, 1, 1, 1, 9],
+            marker: {size: 25, color: '2F6497'},
+            name: 'Wash Frequency',
+            text: data.wfreq,
+            hoverinfo: 'text+name'},
+        {   values: [1, 1, 1, 1, 1, 1, 1, 1, 1, 9],
         rotation: 90,
         text: ['8-9', '7-8', '6-7', '5-6', '4-5', '3-4', '2-3', '1-2', '0-1',''],
         textinfo: 'text',
@@ -75,8 +75,8 @@ function gaugeChart(data) {
         marker: {colors: [...arrColorsG]},
         labels: ['8-9', '7-8', '6-7', '5-6', '4-5', '3-4', '2-3', '2-1', '0-1',''],
         hoverinfo: 'text',
-        hole: .5,
-        tyoe: 'pie',
+        hole: .2,
+        type: 'pie',
         showlegend: false
     }];
     
@@ -84,9 +84,9 @@ function gaugeChart(data) {
         shapes: [{
             type: 'path',
             path: path,
-            fillcolor: '#2F6497',
+            fillcolor: 'red',
             line: {
-                color: '#2F6497'
+                color: 'red'
             }
         }],
         
@@ -99,7 +99,7 @@ function gaugeChart(data) {
             showgrid: false, range: [-1, 1]},
     };
 
-    Plotly.newPlot('gauge', trace. layout, {responsive: true});
+    Plotly.newPlot('gauge', trace, layout, {responsive: true});
 }
 
 // Use the D3 library to read in samples.json from the URL https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json.
